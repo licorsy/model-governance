@@ -1,0 +1,15 @@
+{
+  "name": "model-governance",
+  "owner": {
+    "name": "Licorsy",
+    "url": "https://github.com/licorsy"
+  },
+  "plugins": [
+    {
+      "name": "model-governance",
+      "source": "./",
+      "description": "Model routing as a single-owner convention: cross-model research and cross-model second opinions, with a data guard.",
+      "category": "productivity"
+    }
+  ]
+}

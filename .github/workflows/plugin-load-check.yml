@@ -1,0 +1,56 @@
+name: plugin-load-check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Manifests are valid JSON and structurally correct
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          plugin = json.load(open(".claude-plugin/plugin.json"))
+          market = json.load(open(".claude-plugin/marketplace.json"))
+          errors = []
+          if not isinstance(plugin.get("author"), dict):
+              errors.append("plugin.json: author must be an object")
+          if not isinstance(market.get("owner"), dict):
+              errors.append("marketplace.json: owner must be an object")
+          if not market.get("plugins"):
+              errors.append("marketplace.json: plugins[] must be non-empty")
+          for k in ("name", "version", "license"):
+              if not plugin.get(k):
+                  errors.append(f"plugin.json: {k} is required")
+          for e in errors:
+              print("FAIL: " + e)
+          sys.exit(1 if errors else 0)
+          PY
+
+      - name: Skills have name and description frontmatter
+        run: |
+          for f in skills/*/SKILL.md; do
+            head -5 "$f" | grep -q '^name: ' || { echo "FAIL: $f has no name"; exit 1; }
+            head -5 "$f" | grep -q '^description: ' || { echo "FAIL: $f has no description"; exit 1; }
+          done
+          echo "skills ok"
+
+      - name: Scripts parse and pass shellcheck
+        run: |
+          for f in scripts/*.sh; do bash -n "$f"; done
+          shellcheck scripts/*.sh
+
+      - name: Data guard blocks without a deny list and on a match
+        run: |
+          printf 'hello\n' > /tmp/q.txt
+          set +e
+          MODEL_GOV_DENY_FILE=/tmp/none scripts/ask.sh agy x /tmp/q.txt /tmp/o.md; a=$?
+          printf 'hel+o\n' > /tmp/deny
+          MODEL_GOV_DENY_FILE=/tmp/deny scripts/ask.sh agy x /tmp/q.txt /tmp/o.md; b=$?
+          set -e
+          test "$a" -eq 3 && test "$b" -eq 3 && echo "guard ok"
