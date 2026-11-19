@@ -1,6 +1,6 @@
 {
   "name": "model-governance",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Single owner of model routing across Licorsy repositories: which model family does which job, cross-model research with one reconciliation, and cross-model second opinions verified before acceptance. Drives the Antigravity CLI (agy) and the GitHub Copilot CLI from a neutral directory, behind a local data-protection deny list.",
   "author": {
     "name": "Licorsy",
