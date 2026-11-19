@@ -19,7 +19,7 @@ Two reasons, in this order:
 | Job | Goes to | Why |
 |---|---|---|
 | Executing the task, writing files, reconciling answers, verifying findings | the current Claude session | it holds the context and does the writing |
-| Cross-model research: one answer per family | `agy` `gemini-4-argon-high` · `copilot` `auto` · optionally `agy` `gpt-oss-120b-medium` | three families answering independently |
+| Cross-model research: one answer per family | `agy` `gemini-4-argon-high` · `copilot` `auto` · optionally `agy` `gpt-oss-120b-medium` | up to three families answering independently; Copilot's family is whatever its `model that answered:` line records (R1) |
 | Second opinion on a diff, spec or plan | `agy` `gemini-4-argon-high` (default) · `copilot` `auto` (second voice) | a family other than the author's |
 | Cheap triage, a quick factual check | `agy` `gemini-3.8-flash-low` | seconds, not minutes |
 | A guaranteed GPT-family voice | `agy` `gpt-oss-120b-medium` | Copilot auto-routing cannot be pinned to a family |
@@ -27,7 +27,9 @@ Two reasons, in this order:
 | Long-form web research (Deep Research in a browser UI) | done by hand, exported as a file into the same folder | no CLI path, so it enters as input to the reconciliation |
 
 Model ids come from `agy models` and change with the catalog. When an id here
-stops working, run `agy models`, update this table and bump the plugin version.
+stops working, run `agy models`, update this table **and** the commands that
+repeat the ids in `skills/cross-research/SKILL.md` and
+`skills/second-opinion/SKILL.md`, then bump the plugin version.
 
 ## Rules
 

@@ -3,8 +3,8 @@
 The single owner of **model routing** across Licorsy repositories: which model
 family does which job, and two procedures that use more than one family.
 
-- **`cross-research`** asks one question to Gemini, a GPT-family model and
-  optionally GPT-OSS, saves each answer to a file, and writes one
+- **`cross-research`** asks one question to Gemini, Copilot (auto-routed; its
+  family is the one its answer records) and optionally GPT-OSS, saves each answer to a file, and writes one
   reconciliation: consensus, divergences, single-source claims, and what to
   check at the source.
 - **`second-opinion`** sends a diff, spec or plan to a reviewer from another
@@ -21,7 +21,7 @@ standard is read on demand.
 | Tool | Used for | Check |
 |---|---|---|
 | Antigravity CLI (`agy`) | Gemini, GPT-OSS, and Claude on Google quota | `agy models` lists models |
-| GitHub Copilot CLI (`copilot`) | a GPT-family voice through Copilot | `copilot login` done |
+| GitHub Copilot CLI (`copilot`) | an auto-routed voice through Copilot; the family is recorded per answer | `copilot login` done |
 
 `scripts/check-clis.sh` verifies both without spending a model request, and
 fails loudly when either is missing or signed out.
