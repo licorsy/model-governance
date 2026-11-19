@@ -1,6 +1,6 @@
 ---
 name: cross-research
-description: Ask the same research question to models from different families (Gemini via the Antigravity CLI, GPT-family via Copilot, optionally GPT-OSS), save each answer to a file, and write one reconciliation (consensus, divergences, single-source claims, what to check at the source). Use when the user wants a question researched "in Gemini and ChatGPT too", asks for a cross-check or a reconciliation across models, says "pesquisa cruzada", or would otherwise copy and paste one question into several chat UIs.
+description: Ask the same research question to models from different families (Gemini via the Antigravity CLI, Copilot auto-routed with its family recorded per answer, optionally GPT-OSS for a guaranteed GPT-family voice), save each answer to a file, and write one reconciliation (consensus, divergences, single-source claims, what to check at the source). Use when the user wants a question researched "in Gemini and ChatGPT too", asks for a cross-check or a reconciliation across models, says "pesquisa cruzada", or would otherwise copy and paste one question into several chat UIs.
 ---
 
 # Cross-model research
